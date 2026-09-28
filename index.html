@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Benjamin Lewis | Mechanical Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── DESIGN TOKENS ── */
+  :root {
+    --garnet:     #782F40;
+    --garnet-dk:  #5A1F2E;
+    --garnet-mid: #9B3A4F;
+    --garnet-lt:  #C4647A;
+    --gold:       #CEB888;
+    --gold-lt:    #E8D9B5;
+    --white:      #FFFFFF;
+    --off-white:  #FAF8F6;
+    --gray-100:   #F2EEF0;
+    --gray-300:   #C8BBC0;
+    --gray-500:   #8A7580;
+    --gray-700:   #4A3540;
+    --text:       #1E0C12;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body:    'Inter', sans-serif;
+
+    --radius: 8px;
+    --shadow-sm: 0 2px 8px rgba(120,47,64,0.08);
+    --shadow-md: 0 6px 24px rgba(120,47,64,0.14);
+    --shadow-lg: 0 16px 48px rgba(120,47,64,0.2);
+    --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+
+ /* Base styling for all logos */
+
+.exp-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures all card bodies stretch equally */
+}
+
+.project-desc {
+  /* Allows the description area to take up remaining space */
+  flex-grow: 1; 
+}
+
+.project-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto; /* Pushes skill chips down so they line up evenly */
+  margin-bottom: 1rem;
+}
+
+.contact-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the heading, text, and buttons */
+}
+
+.section-sub {
+  /* Fits the width of the button row below it */
+  max-width: fit-content; 
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1rem; /* Adjust space between buttons if needed */
+  justify-content: center;
+}
+
+.contact-link {
+  background: #782F40;
+  color: #FFFFFF;
+  border: 1.5px solid #782F40;
+  font-weight: 600;
+
+  /* Essential layout properties to keep buttons aligned */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Optional hover state to make them feel interactive */
+.contact-link:hover {
+  opacity: 0.9;
+  color: #FFFFFF;
+}
+
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: var(--text); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--gray-100); }
+  ::-webkit-scrollbar-thumb { background: var(--garnet); border-radius: 3px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(90,31,46,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(206,184,136,0.25);
+    padding: 0 2rem; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--white); letter-spacing: -0.02em; text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+  .nav-links a { color: #FFFFFF; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: color var(--transition); }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-btn { background: var(--gold); color: var(--garnet-dk) !important; padding: 0.35rem 0.85rem; border-radius: var(--radius); font-weight: 700 !important; }
+  .nav-btn:hover { background: var(--gold-lt); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(150deg, var(--garnet-dk) 0%, var(--garnet) 50%, var(--garnet-mid) 100%);
+    display: flex; align-items: center;
+    padding: 80px 2rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  #hero .blueprint-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://www.fsu.edu/uploadedImages/content-modules/rotator/8-campus.jpg');
+    background-size: cover; background-position: center top;
+    opacity: 0.22; pointer-events: none;
+    filter: saturate(0.7) contrast(1.1);
+  }
+
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(206,184,136,0.12); border: 1px solid rgba(206,184,136,0.3);
+    border-radius: 100px; padding: 0.35rem 0.9rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--gold-lt);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.7); } }
+
+  .hero-name { font-family: var(--font-display); font-size: clamp(3rem,8vw,6.5rem); font-weight: 700; line-height: 0.95; color: var(--white); letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .hero-name .accent { color: var(--gold); }
+  .hero-title { font-size: clamp(1rem,2.5vw,1.2rem); color: rgba(255,255,255,0.8); font-weight: 400; margin-bottom: 1.5rem; max-width: 620px; }
+  .hero-tagline { font-size: 1rem; color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 2.5rem; border-left: 3px solid var(--gold); padding-left: 1rem; }
+
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); border-radius: 100px; padding: 0.3rem 0.85rem; font-size: 0.8rem; color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--garnet-dk); padding: 0.75rem 1.75rem; border-radius: var(--radius); font-weight: 700; font-size: 0.9rem; text-decoration: none; letter-spacing: 0.02em; transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.4rem; }
+  .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(206,184,136,0.4); }
+  .btn-secondary { background: transparent; border: 1.5px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.75rem 1.75rem; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.4rem; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+  .stat-item { display: flex; flex-direction: column; }
+  .stat-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.25rem; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; font-weight: 700; color: var(--garnet); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.75rem,4vw,2.5rem); font-weight: 700; color: var(--garnet-dk); letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.15; }
+  .section-sub { font-size: 1rem; color: var(--gray-700); max-width: 560px; margin-bottom: 3rem; }
+  .amber-rule { border: none; height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--off-white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-bio p { font-size: 0.97rem; color: var(--gray-700); line-height: 1.85; margin-bottom: 1rem; }
+  .about-bio p strong { color: var(--garnet-dk); }
+  .about-cards { display: grid; gap: 1rem; }
+  .about-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem 1.5rem; border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 1rem; transition: all var(--transition); }
+  .about-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--garnet-lt); }
+  .about-card-icon { width: 40px; height: 40px; min-width: 40px; background: var(--garnet); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .about-card-text strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--garnet-dk); margin-bottom: 0.2rem; }
+  .about-card-text span { font-size: 0.82rem; color: var(--gray-500); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--white); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; }
+  .skill-group { background: var(--off-white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 1.5rem; transition: all var(--transition); }
+  .skill-group:hover { border-color: var(--garnet-lt); box-shadow: var(--shadow-sm); }
+  .skill-group-title { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; color: var(--garnet); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--gold); display: inline-block; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  /* Skill Tag Styling (With Hyperlinks) */
+  .skill-tag { border-radius: 6px; padding: 0.35rem 0.75rem; font-size: 0.82rem; font-weight: 500; transition: all var(--transition); display: inline-block; text-decoration: none; cursor: pointer; }
+  .skill-tag.tier-3years { background: #782F40; color: #FFFFFF; border: 1.5px solid #782F40; font-weight: 600; }
+  .skill-tag.tier-2years { background: #D7B59A; color: #4A1E28; border: 1.5px solid #D7B59A; font-weight: 600; }
+  .skill-tag.tier-1year  { background: #FFFFFF; color: #782F40; border: 1.5px solid #782F40; font-weight: 500; }
+  .skill-tag:hover       { opacity: 0.85; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(120,47,64,0.2); }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--off-white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 1.5rem; }
+  .project-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: calc(var(--radius)*1.5); overflow: hidden; box-shadow: var(--shadow-sm); transition: all var(--transition); display: flex; flex-direction: column; cursor: pointer; text-decoration: none; color: inherit; }
+  .project-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--garnet-lt); }
+  .project-card.featured { border-color: var(--gold); border-width: 2px; }
+  
+  /* Project Card Visual Header Thumbnail */
+  .project-header { height: 160px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 1.25rem; background-size: cover; background-position: center; }
+  .project-header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30,12,18,0.4) 0%, rgba(30,12,18,0.85) 100%); z-index: 0; }
+  .project-num { position: absolute; top: 0.75rem; right: 1rem; font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: rgba(255,255,255,0.25); line-height: 1; user-select: none; z-index: 1; }
+  .project-badge { display: inline-block; background: var(--gold); color: var(--garnet-dk); font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; position: relative; z-index: 1; width: fit-content; }
+  .project-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--white); position: relative; z-index: 1; line-height: 1.25; }
+  .project-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+  .project-desc { font-size: 0.875rem; color: var(--gray-700); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
+  .project-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+  .chip { background: var(--gray-100); color: var(--garnet-dk); font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 4px; letter-spacing: 0.02em; }
+  .project-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; font-weight: 600; color: var(--garnet); text-decoration: none; transition: color var(--transition); margin-top: auto; }
+  .project-link:hover { color: var(--gold); }
+
+  /* ── DETAIL PAGE ── */
+  .detail-page { display: none; position: fixed; inset: 0; z-index: 300; background: var(--white); overflow-y: auto; }
+  .detail-page.open { display: block; }
+  .detail-topbar { position: sticky; top: 0; background: rgba(90,31,46,0.97); backdrop-filter: blur(12px); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(206,184,136,0.25); z-index: 10; }
+  .detail-back { background: none; border: 1.5px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.45rem 1rem; border-radius: var(--radius); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all var(--transition); display: flex; align-items: center; gap: 0.4rem; }
+  .detail-back:hover { border-color: var(--gold); color: var(--gold); }
+  .detail-title-bar { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--white); }
+  
+  /* Navigation Arrows */
+  .detail-nav-arrows { display: flex; gap: 0.5rem; align-items: center; }
+  .detail-arrow-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.4rem 0.8rem; border-radius: var(--radius); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all var(--transition); text-decoration: none; }
+  .detail-arrow-btn:hover { background: var(--gold); color: var(--garnet-dk); border-color: var(--gold); }
+
+  .detail-hero { background: linear-gradient(135deg, var(--garnet-dk), var(--garnet-mid)); padding: 3rem 2rem 2rem; position: relative; overflow: hidden; }
+  .detail-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .detail-badge { display: inline-block; background: var(--gold); color: var(--garnet-dk); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 4px; margin-bottom: 0.75rem; }
+  .detail-name { font-family: var(--font-display); font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; line-height: 1.1; }
+  .detail-meta { font-size: 0.9rem; color: rgba(255,255,255,0.65); margin-bottom: 1rem; }
+  .detail-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .detail-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); font-size: 0.75rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px; }
+  .detail-body { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+  .detail-body h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--garnet-dk); margin: 2rem 0 0.75rem; border-left: 3px solid var(--gold); padding-left: 0.75rem; }
+  .detail-body p { font-size: 0.95rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 0.75rem; }
+  .detail-body ul { list-style: none; padding: 0; margin-bottom: 1rem; }
+  .detail-body ul li { font-size: 0.95rem; color: var(--gray-700); line-height: 1.7; padding: 0.2rem 0 0.2rem 1.2rem; position: relative; }
+  .detail-body ul li::before { content: '▸'; position: absolute; left: 0; color: var(--garnet); font-size: 0.7rem; top: 0.35rem; }
+
+  .media-placeholder { background: var(--gray-100); border: 2px dashed var(--gray-300); border-radius: var(--radius); padding: 3rem 2rem; text-align: center; margin: 1.5rem 0; }
+  .media-placeholder p { color: var(--gray-500); font-size: 0.9rem; }
+  .media-placeholder strong { color: var(--garnet); display: block; font-size: 1rem; margin-bottom: 0.4rem; }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .media-slot { background: var(--gray-100); border: 2px dashed var(--gray-300); border-radius: var(--radius); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+  .media-slot span { font-size: 0.78rem; color: var(--gray-500); text-align: center; padding: 0.5rem; }
+
+  /* ── EXPERIENCE (EXPANDED NO SCROLLBARS) ── */
+  #experience { background: var(--white); }
+  .exp-section-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--garnet); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--gold); display: inline-block; }
+  .exp-category { margin-bottom: 2.5rem; }
+  .exp-expanded-wrap { display: flex; flex-direction: column; gap: 1rem; }
+
+  .exp-card { display: flex; gap: 1.25rem; padding: 1.25rem; border: 1px solid var(--gray-100); border-radius: var(--radius); background: var(--off-white); transition: all var(--transition); align-items: flex-start; }
+  .exp-card:hover { box-shadow: var(--shadow-md); border-color: var(--garnet-lt); background: var(--white); }
+  .exp-logo { width: 56px; min-width: 56px; height: 56px; border-radius: 10px; background: var(--white); border: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 1.5rem; }
+  .exp-info { flex: 1; }
+  .exp-role { font-weight: 700; font-size: 0.95rem; color: var(--garnet-dk); margin-bottom: 0.1rem; }
+  .exp-org { font-size: 0.82rem; color: var(--garnet); font-weight: 600; margin-bottom: 0.1rem; }
+  .exp-date { font-size: 0.78rem; color: var(--gray-500); margin-bottom: 0.6rem; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li { font-size: 0.83rem; color: var(--gray-700); line-height: 1.6; padding: 0.15rem 0 0.15rem 1rem; position: relative; }
+  .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 0.65rem; top: 0.3rem; }
+
+  /* ── CERTS ── */
+  #certs { background: var(--garnet-dk); }
+  #certs .section-title { color: var(--white); }
+  #certs .section-label { color: var(--gold-lt); }
+  #certs .section-sub { color: rgba(255,255,255,0.6); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 1rem; }
+  .cert-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 1.25rem; transition: all var(--transition); }
+  .cert-card:hover { background: rgba(255,255,255,0.11); border-color: var(--gold); transform: translateY(-2px); }
+  .cert-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .cert-name { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; line-height: 1.3; }
+  .cert-org { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--off-white); }
+  .contact-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+  .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all var(--transition); border: 1.5px solid var(--gray-300); color: var(--garnet-dk); }
+  .contact-link:hover { background: var(--garnet); color: var(--white); border-color: var(--garnet); }
+  .contact-link.primary { background: var(--garnet); color: var(--white); border-color: var(--garnet); }
+  .contact-link.primary:hover { background: var(--gold); border-color: var(--gold); color: var(--garnet-dk); }
+
+  footer { background: var(--garnet-dk); color: rgba(255,255,255,0.4); text-align: center; padding: 1.5rem 2rem; font-size: 0.8rem; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    nav .nav-links { display: none; }
+  }
+</style>
+
+<!-- favicon -->
+
+<link rel="icon" type="image/png" href="Images/Logos/mylogo.png">
+
+</head>
+<body>
+
+<!-- ═══════════════════════════ PROJECT DETAIL PAGES WITH CYCLING ARROWS ═══════════════════════════ -->
+
+<!-- ========================================== -->
+<!-- 01: BIOMECHATRONIC BRAIN -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-biomech-brain">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Biomechatronic Brain</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-bioprinting')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-active-suspension')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Mechatronics</span>
+      <div class="detail-name">Biomechatronic Brain</div>
+      <div class="detail-meta">Young Engineers Tallahassee · Jun 2026 – Present</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">Embedded Systems</span><span class="detail-chip">Arduino</span><span class="detail-chip">3D Design</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Project Overview</h3>
+    <p>Developing a biomechatronic brain model integrating embedded control, sensors, and structural design for youth engineering outreach.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 02: SPRING-ASSISTED ACTIVE SUSPENSION -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-active-suspension">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Spring-Assisted Active Suspension</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-biomech-brain')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-braille-printer')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Dynamic Systems</span>
+      <div class="detail-name">Spring-Assisted Active Suspension</div>
+      <div class="detail-meta">Dynamics I · Jul 2026 – Aug 2026</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">Dynamics</span><span class="detail-chip">MATLAB</span><span class="detail-chip">Mechanical Design</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Project Overview</h3>
+    <p>Analyzed and modeled a spring-assisted active suspension system for dynamic load damping and vibration isolation.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 03: AUTOMATED BRAILLE PRINTER -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-braille-printer">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Automated Braille Printer</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-active-suspension')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-elbow-arm')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Mechatronics</span>
+      <div class="detail-name">Automated Braille Printer</div>
+      <div class="detail-meta">Mechatronics · Mar 2026 – May 2026</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">Mechatronics</span><span class="detail-chip">Arduino</span><span class="detail-chip">Mechanical Design</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Project Overview</h3>
+    <p>Designed and built an automated Braille printer integrating precise stepper motor motion control, custom mechanical punching mechanisms, and embedded system programming.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 04: ELBOW ACTUATED ARM - GRIP -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-elbow-arm">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Elbow Actuated Arm — GRiP</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-braille-printer')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-alignr')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Assistive Tech</span>
+      <div class="detail-name">Elbow Actuated Arm — GRiP</div>
+      <div class="detail-meta">GRiP · Feb 2026 – May 2026</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">SolidWorks</span><span class="detail-chip">3D Printing</span><span class="detail-chip">Assistive Tech</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Project Overview</h3>
+    <p>Designed and built an elbow-actuated mechanical arm device to assist users with upper-limb mobility and task execution.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 05: ALIGNR — AI INTERNSHIP MATCHING PLATFORM -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-alignr">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Alignr — AWS Design Sprint</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-elbow-arm')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-stirling')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Product Design</span>
+      <div class="detail-name">Alignr — AI Internship Matching Platform</div>
+      <div class="detail-meta">Innovation Hub × AWS 24-Hour Design Sprint · February 2026</div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Project Details</h3>
+    <p>Created an AI-powered platform generating tailored resumes and alignment scoring during a 24-hour sprint using AWS Working Backwards methodology.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 06: STIRLING ENGINE -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-stirling">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Stirling Engine</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-alignr')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-wheelchair')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">⭐ Lead Project</span>
+      <div class="detail-name">Stirling Engine — Analysis, CAD & Fabrication</div>
+      <div class="detail-meta">ME Tools Lab · May 2025 · Florida State University</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">SolidWorks</span><span class="detail-chip">GD&T</span><span class="detail-chip">Thermodynamics</span><span class="detail-chip">Manual Machining</span><span class="detail-chip">Assembly Modeling</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Project Overview</h3>
+    <p>A complete design-to-build exercise spanning thermodynamic analysis, full SolidWorks CAD modeling, toleranced drawing production, and hands-on fabrication. The finished engine ran under applied heat, validating both the computational model and the dimensional stack-up.</p>
+    <h3>Thermodynamic Analysis</h3>
+    <ul>
+      <li>Analyzed ideal and real Stirling thermodynamic cycles, evaluating a gamma engine at 9.8% thermal efficiency</li>
+      <li>Modeled heat transfer, frictional losses, thermal leakage, and phase lag to explain deviation from ideal performance</li>
+    </ul>
+    <h3>CAD Design & Fabrication</h3>
+    <ul>
+      <li>Modeled all major subsystems in SolidWorks: piston/cylinder assembly, flywheel, displacer, and frame</li>
+      <li>Machined all components from raw stock on manual mill and lathe</li>
+    </ul>
+    <h3>Photos & Media</h3>
+    <div class="media-grid">
+      <img src="Images/Stirling Engine/STR_1.png" alt="SolidWorks CAD Assembly of Stirling Engine" style="width:100%; aspect-ratio:4/3; object-fit:contain; background:#FFFFFF; border-radius:8px; border:1px solid #C8BBC0;">
+      <video controls autoplay muted loop style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; border:1px solid #C8BBC0;">
+        <source src="Images/Stirling Engine/Stirling Engine.MOV" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 07: WHEELCHAIR DOOR-OPENING ASSISTIVE DEVICE -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-wheelchair">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Wheelchair Assistive Device</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-stirling')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-hpmi')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Medical Design</span>
+      <div class="detail-name">Wheelchair Door-Opening Assistive Device</div>
+      <div class="detail-meta">ME Tools Lab · May 2025 · Florida State University</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">SolidWorks</span><span class="detail-chip">Assistive Device Design</span><span class="detail-chip">Decision Matrices</span><span class="detail-chip">Gantt Charts</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Problem Statement & Solution</h3>
+    <p>Designed a mechanical assistive device enabling wheelchair users to open non-automated doors independently, featuring full SolidWorks component modeling and engineering design methodology.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 08: CNT COMPOSITE RESEARCH — HPMI / NASA US-COMP -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-hpmi">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">NASA HPMI Research</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-wheelchair')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-bioprinting')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">NASA Research</span>
+      <div class="detail-name">CNT Composite Research — HPMI / NASA US-COMP</div>
+      <div class="detail-meta">High-Performance Materials Institute · Sep 2024 – Jan 2025</div>
+      <div class="detail-chip-row">
+        <span class="detail-chip">CNT Composites</span><span class="detail-chip">Tensile Testing</span><span class="detail-chip">Aerospace Materials</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Research Overview</h3>
+    <p>Investigated continuous CNT yarn composites for aerospace structures under NASA US-COMP. Conducted tensile testing, composite fabrication, and resin density analysis.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 09: 3D BIOPRINTING SYNTHESIS -->
+<!-- ========================================== -->
+<div class="detail-page" id="detail-bioprinting">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">3D Bioprinting Research</span>
+    <div class="detail-nav-arrows">
+      <a class="detail-arrow-btn" onclick="openDetail('detail-hpmi')">← Prev</a>
+      <a class="detail-arrow-btn" onclick="openDetail('detail-biomech-brain')">Next →</a>
+    </div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Biomedical Research</span>
+      <div class="detail-name">3D Bioprinting Applications — Research Paper</div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Overview</h3>
+    <p>Investigated 3D bioprinting applications for tissue architecture replication, organoid platforms, and ECM models in personalized healthcare.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SKILL SHOWCASE PAGE ═══════════════════════════ -->
+<div class="detail-page" id="detail-skills-showcase">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back to Portfolio</button>
+    <span class="detail-title-bar">Technical Skill Showcase</span>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-inner">
+      <span class="detail-badge">Skills Execution Gallery</span>
+      <div class="detail-name" id="skill-showcase-title">Skill Execution Showcase</div>
+      <div class="detail-meta">Demonstrated technical proficiency in lab, shop, and project environments.</div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h3>Demonstrated Application & Photos</h3>
+    <p id="skill-showcase-desc">Clicking any skill in the Technical Skills section brings you directly here to view images, videos, and descriptions of me actively performing that skill in academic, lab, or shop settings.</p>
+    
+    <div class="media-grid">
+      <div class="media-slot"><span>Add Skill Photo / CAD Render</span></div>
+      <div class="media-slot"><span>Add Machining / Lab Photo</span></div>
+      <div class="media-slot"><span>Add Output / Analysis Document</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ MAIN SITE ═══════════════════════════ -->
+<div id="main-site">
+
+<nav>
+  <a href="#hero" class="nav-logo">BL<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blueprint-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Seeking Summer 2027 Internship</div>
+    <h1 class="hero-name">Benjamin<br><span class="accent">Lewis</span></h1>
+    <p class="hero-title">Mechanical Engineering Junior at Florida State University<br>GPA 3.50 · Dean's List</p>
+    <p class="hero-tagline">Bridging design-driven engineering with purposeful innovation.</p>
+    <div class="hero-pills">
+      <span class="pill">CAD / Product Design</span>
+      <span class="pill">Medical Technology</span>
+      <span class="pill">Industrial Automation</span>
+      <span class="pill">Materials Science</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Projects →</a>
+      <a href="mailto:blewis@fsu.edu" class="btn-secondary">✉ Email Me</a>
+      <a href="ME Resume - Benjamin Lewis.pdf" target="_blank" class="btn-secondary">📄 View Resume</a>
+      <a href="https://www.linkedin.com/in/bl-benjamin-lewis/" target="_blank" class="btn-secondary">LinkedIn</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">2028</span><span class="stat-label">Expected Graduation</span></div>
+      <div class="stat-item"><span class="stat-num">5 YEARS</span><span class="stat-label">3D Modeling and CAD Experience</span></div>
+      <div class="stat-item"><span class="stat-num">9</span><span class="stat-label">Engineering Projects</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="amber-rule" />
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Who I Am</div>
+    <h2 class="section-title">Designer. Innovator. Contributor.</h2>
+    <div class="about-grid fade-up">
+      <div class="about-bio">
+        <p>I am a Mechanical Engineering student at the <strong>FAMU-FSU College of Engineering</strong> driven by a passion for designing products that make a real difference. I thrive on bringing ideas from initial concept to working prototype by pairing 3D CAD modeling with precision machining and hands-on fabrication.</p>
+        <p>My path at Florida State University began in the Engineering Living Learning Community, where team challenges in the First-Year Engineering Lab (FYEL) first hooked me on collaborative design. As my studies advanced through courses like Materials Science, Mechatronics, and the Mechanical Engineering Tools Lab, my interests expanded into nanotechnology, adaptive control, and advanced CAD. Outside the classroom, I earned equipment certifications through the campus Makerspace and designed custom components using Formlabs SLA printers at the FSU Innovation Hub.</p>
+        <p>Fascinated by the intersection of biotechnology, mechatronics, and product design, I joined <strong>Generational Relief in Prosthetics (GRiP)</strong> to build custom assistive devices for individuals with limb differences. A major highlight was collaborating with my project team to design and fabricate a fully functional, elbow-actuated prosthetic arm for a 7-year-old girl with Type II Radial Aplasia.</p>
+        <p>I am actively seeking Summer 2027 internships in Product Design, Medical Technology, and Industrial Automation, fields where I can leverage my full design-to-build skillset to solve impactful, real-world problems.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-icon">🎓</div>
+          <div class="about-card-text">
+            <strong>Florida State University</strong>
+            <span>B.S. Mechanical Engineering<br>Expected Graduation: <em>Spring 2028</em><br>Minors: <em>Physics, Math, Innovation, Business</em></span>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🎯</div>
+          <div class="about-card-text">
+            <strong>Six Sigma Green Belt</strong>
+            <span>Institute of Industrial and Systems Engineers (IISE) · Jan 2026</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📐</div>
+          <div class="about-card-text">
+            <strong>SolidWorks CSWA</strong>
+            <span>Dassault Systèmes · In Progress</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📜</div>
+          <div class="about-card-text">
+            <strong>California State Seal of Biliteracy - Spanish</strong>
+            <span>California Department of Education · May 2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="amber-rule" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">What I Work With</div>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub" style="margin-bottom:1.5rem;">
+      <span style="background:#782F40;color:#FFFFFF;border:1.5px solid #782F40;padding:3px 10px;border-radius:6px;font-size:0.82em;font-weight:600;margin-right:8px;">3+ Years Experience</span>
+      <span style="background:#D7B59A;color:#4A1E28;border:1.5px solid #D7B59A;padding:3px 10px;border-radius:6px;font-size:0.82em;font-weight:600;margin-right:8px;">1–2 Years Experience</span>
+      <span style="background:#FFFFFF;color:#782F40;border:1.5px solid #782F40;padding:3px 10px;border-radius:6px;font-size:0.82em;font-weight:600;">&lt; 1 Year Experience</span>
+    </p>
+    <div class="skills-grid fade-up">
+
+      <div class="skill-group">
+        <div class="skill-group-title">CAD & Design</div>
+        <div class="skill-tags">
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('SolidWorks')">SolidWorks</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Onshape')">Onshape</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Dimensioned Drawings')">Dimensioned Drawings</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Assembly Modeling')">Assembly Modeling</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Toleranced Drawings')">Toleranced Drawings</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Parametric Modeling')">Parametric Modeling</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('GD&T')">GD&amp;T</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('AutoCAD')">AutoCAD</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Fusion 360')">Fusion 360</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('ANSYS Mechanical')">ANSYS Mechanical</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('DFM')">Design for Manufacturing (DFM)</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Tolerance Stack-up Analysis')">Tolerance Stack-up Analysis</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('SolidWorks Simulation (FEA)')">SolidWorks Simulation (FEA)</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Product Lifecycle Analysis (PLM)')">Product Lifecycle Analysis (PLM)</a>
+
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Fabrication & Manufacturing</div>
+        <div class="skill-tags">
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('3D Printing (FDM)')">3D Printing (FDM)</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Rapid Prototyping')">Rapid Prototyping</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Soldering & Wiring')">Soldering &amp; Wiring</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('CNC Mill & Lathe')">CNC Mill &amp; Lathe</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Drill Press')">Drill Press</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Manual Loom')">Manual Loom</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Manual Machining')">Manual Machining</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('PCB Fabrication')">PCB Fabrication</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Tapping and Reaming')">Tapping and Reaming</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Thermoforming')">Thermoforming</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Welding')">Welding</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Wet Saw / Band Saw')">Wet Saw / Band Saw</a>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Programming & Embedded Systems</div>
+        <div class="skill-tags">
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Arduino')">Arduino</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('AWS Kiro')">AWS Kiro</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('C++')">C++</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Google Suite')">Google Suite</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Microsoft Suite')">Microsoft Suite</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('MATLAB')">MATLAB</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('HTML')">HTML</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('MechAnalyzer')">MechAnalyzer</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('MotionGenesis')">MotionGenesis</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Python')">Python</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('R')">R</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Raspberry Pi')">Raspberry Pi</a>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Research & Analysis</div>
+        <div class="skill-tags">
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Empirical Data Analysis')">Empirical Data Analysis</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Literature Review and Synthesis')">Literature Review and Synthesis</a>
+          <a class="skill-tag tier-3years" onclick="openSkillShowcase('Technical Writing')">Technical Writing</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Composites Characterization')">Composites Characterization</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Decision Matrices')">Decision Matrices</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Gantt Charts')">Gantt Charts</a>
+          <a class="skill-tag tier-2years" onclick="openSkillShowcase('Tensile Testing')">Tensile Testing</a>
+          <a class="skill-tag tier-1year" onclick="openSkillShowcase('Six Sigma Methodologies')">Six Sigma Methodologies</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="amber-rule" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">What I've Built</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid fade-up">
+
+    <!-- Biomechatronic Brain -->
+<div class="project-card" onclick="openDetail('detail-biomech-brain')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">01</div>
+    <span class="project-badge">Mechatronics</span>
+    <div class="project-title">Biomechatronic Brain</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Developing a biomechatronic brain model integrating embedded control, sensors, and structural design for youth engineering outreach.</p>
+    <div class="project-chips"><span class="chip">Embedded Systems</span><span class="chip">Arduino</span><span class="chip">3D Printing (FDM)</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>Young Engineers Tallahassee</div>
+      <div><em>Jun 2026 – Present</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- Spring-Assisted Active Suspension -->
+<div class="project-card" onclick="openDetail('detail-active-suspension')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">02</div>
+    <span class="project-badge">Dynamic Systems</span>
+    <div class="project-title">Spring-Assisted Active Suspension</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Analyzed and modeled a spring-assisted active suspension system for dynamic load damping and vibration isolation.</p>
+    <div class="project-chips"><span class="chip">MotionGenesis</span><span class="chip">MATLAB</span><span class="chip">Empirical Data Analysis</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>Dynamics I</div>
+      <div><em>Jul 2026 – Aug 2026</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- Automated Braille Printer -->
+<div class="project-card" onclick="openDetail('detail-braille-printer')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">03</div>
+    <span class="project-badge">Mechatronics</span>
+    <div class="project-title">Automated Braille Printer</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Designed and built an automated Braille printer integrating precise stepper motor motion control, custom mechanical punching mechanisms, and embedded system programming.</p>
+    <div class="project-chips"><span class="chip">Embedded Systems</span><span class="chip">Arduino</span><span class="chip">SolidWorks</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>Mechatronics</div>
+      <div><em>Mar 2026 – May 2026</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- Elbow Actuated Arm - GRiP -->
+<div class="project-card" onclick="openDetail('detail-elbow-arm')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">03</div>
+    <span class="project-badge">Assistive Tech</span>
+    <div class="project-title">Elbow Actuated Arm — GRiP</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Designed and built an elbow-actuated mechanical arm device to assist users with upper-limb mobility and task execution.</p>
+    <div class="project-chips"><span class="chip">SolidWorks</span><span class="chip">3D Printing</span><span class="chip">Thermoforming</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>GRiP</div>
+      <div><em>Feb 2026 – May 2026</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- Alignr — AI Internship Matching Platform -->
+<div class="project-card" onclick="openDetail('detail-alignr')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">04</div>
+    <span class="project-badge">Product Design</span>
+    <div class="project-title">Alignr — AI Internship Matching Platform</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Designed an AI platform generating skill-based tailored resumes and evaluating resume-to-job alignment during FSU's Innovation Hub × AWS 24-Hour Design Sprint.</p>
+    <div class="project-chips"><span class="chip">AWS Kiro</span><span class="chip">HTML</span><span class="chip">Six Sigma Methodologies</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>Innovation Hub × AWS</div>
+      <div><em>Feb 2026</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- Stirling Engine — Analysis, CAD & Fabrication -->
+<div class="project-card featured" onclick="openDetail('detail-stirling')">
+  <div class="project-header" style="background-image: url('Images/Stirling Engine/STR_1.png');">
+    <div class="project-num">05</div>
+    <span class="project-badge">⭐ Lead Project</span>
+    <div class="project-title">Stirling Engine — Analysis, CAD & Fabrication</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Analyzed Stirling cycles at 9.8% efficiency, modeled subsystems in SolidWorks, produced toleranced drawings, and machined all parts from raw stock into a running engine.</p>
+    <div class="project-chips"><span class="chip">Manual Machining</span><span class="chip">GD&T</span><span class="chip">SolidWorks</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>ME Tools Lab</div>
+      <div><em>May 2025</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- Wheelchair Door-Opening Assistive Device -->
+<div class="project-card" onclick="openDetail('detail-wheelchair')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">06</div>
+    <span class="project-badge">Medical Design</span>
+    <div class="project-title">Wheelchair Door-Opening Assistive Device</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Designed a mechanical device enabling wheelchair users to open non-automated doors independently using SolidWorks CAD and structured engineering evaluation.</p>
+    <div class="project-chips"><span class="chip">SolidWorks</span><span class="chip">Gantt Charts</span><span class="chip">Decision Matrices</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>ME Tools Lab</div>
+      <div><em>May 2025</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- CNT Composite Research — HPMI / NASA US-COMP -->
+<div class="project-card" onclick="openDetail('detail-hpmi')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">08</div>
+    <span class="project-badge">NASA Research</span>
+    <div class="project-title">CNT Composite Research — HPMI / NASA US-COMP</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Investigated continuous CNT yarn composites as alternatives to carbon fiber. Fabricated woven panels, performed tensile testing, and conducted resin density analysis.</p>
+    <div class="project-chips"><span class="chip">Composites Characterization</span><span class="chip">Manual Loom</span><span class="chip">Tensile Testing</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>HPMI Lab</div>
+      <div><em>Sep 2024 – Jan 2025</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3D Bioprinting Synthesis -->
+<div class="project-card" onclick="openDetail('detail-bioprinting')">
+  <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80');">
+    <div class="project-num">09</div>
+    <span class="project-badge">Biomedical Research</span>
+    <div class="project-title">3D Bioprinting Synthesis</div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Investigated how 3D bioprinting replicates tissue architecture for organ fabrication and drug screening, synthesizing findings from peer-reviewed literature.</p>
+    <div class="project-chips"><span class="chip">Technical Writing</span><span class="chip">Literature Review and Synthesis</span><span class="chip">Microsoft Suite</span></div>
+    <div class="project-link" style="display: block; width: 100%;">
+      <div>Self Conducted</div>
+      <div><em>Feb 2024</em></div>
+      <div>→ Explore Project</div>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="amber-rule" />
+
+<!-- EXPERIENCE (FULLY EXPANDED) -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Where I've Worked</div>
+    <h2 class="section-title">Experience</h2>
+
+    <!-- Engineering -->
+    <div class="exp-category fade-up">
+      <div class="exp-section-title">Engineering & Research</div>
+      <div class="exp-expanded-wrap">
+
+        <div class="exp-card">
+    <div class="exp-logo">
+      <img src="Images/Logos/YET.png" alt="Young Engineers Tallahassee Logo" class="exp-logo-img" style="transform: scale(1.5);">
+    </div>
+    <div class="exp-info">
+      <div class="exp-role">STEM Instructor</div>
+      <div class="exp-org">Young Engineers Tallahassee</div>
+      <div class="exp-date"><em>May 2026 – July 2026, September 2026 – Present</em><br>Tallahassee, FL
+      </div>
+      <ul class="exp-bullets">
+        <li>Co-instructed a 5-week STEM program with 4 other instructors, delivering hands-on curricula in maker tech, conservation engineering,
+            biomedical technology, autonomous AI/robotics, and space systems</li>
+        <li>Mentored 15+ middle school students through a multi-week biomechatronics capstone project, directing the 3D printing of human brain
+            models and the programming of Arduino sensor arrays to simulate neurological functions</li>
+        <li>Facilitated interactive embedded systems training using Arduino and Raspberry Pi, guiding 100% of students to successfully construct
+            circuits and program custom logic loops for LEDs, motors, and sensors</li>
+        <li>Organized a final project showcase, enabling students to demonstrate their functional prototypes and present their design choices to peers,
+            parents, and staff</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-logo">
+      <img src="Images/Logos/HPMI.jpg" alt="HPMI Logo" class="exp-logo-img" style="transform: scale(0.9);">
+    </div>
+    <div class="exp-info">
+      <div class="exp-role">Undergraduate Research Assistant</div>
+      <div class="exp-org">High-Performance Materials Institute (HPMI) — NASA US-COMP</div>
+      <div class="exp-date"><em>September 2024 – January 2025</em><br>Tallahassee, FL
+      </div>
+      <ul class="exp-bullets">
+        <li>Investigated the scalability of continuous carbon nanotube (CNT) yarn composites as high-performance alternatives to carbon fiber,
+          contributing to a NASA-backed aerospace materials research team</li>
+        <li>Fabricated and cured three woven CNT panels using a manual loom; performed tensile testing to evaluate mechanical performance and
+          fiber–matrix interaction</li>
+        <li>Quantified thermal effects on AroCy XU 371 cyanate ester resin density using a Mettler Toledo XS104 analytical balance; documented
+          mass–volume measurements in Excel to inform curing process controls</li>
+        <li>Operated wet saws and sanding equipment to refine carbon fiber blocks to dimensional tolerances, supporting comparative analysis between
+          CNT and conventional fiber architectures</li>
+      </ul>
+    </div>
+  </div>
+
+    <!-- Work Experience -->
+    <div class="exp-category fade-up">
+      <div class="exp-section-title">Work Experience</div>
+      <div class="exp-expanded-wrap">
+
+        <div class="exp-card">
+          <div class="exp-logo">
+            <img src="Images/Logos/Canes.png" alt="Canes Logo" class="exp-logo-img" style="transform: scale(0.8);">
+          </div>
+          <div class="exp-info">
+            <div class="exp-role">Crewmember and Cashier</div>
+            <div class="exp-org">Raising Canes</div>
+            <div class="exp-date">May 2026 – Jul 2026 · Tallahassee, FL</div>
+            <ul class="exp-bullets">
+              <li>Overhauled front-of-house workflow during peak shifts alongside 5+ floor staff to eliminate order bottlenecks and accelerate table turnover rates by 25%</li>
+              <li>Reconciled daily drawer balances exceeding $750, auditing 50+ receipts per shift with 100% precision to maintain accurate register logs</li>
+              <li>Accelerated equipment maintenance and workstation sanitization routines across 4 core prep zones, preventing service delays during high-volume hours</li>
+              <li>Championed floor tasks alongside peer team members during workweeks, empowering new personnel by demonstrating optimal guest service standards</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-logo">
+            <img src="Images/Logos/Knack.png" alt="Knack Logo" class="exp-logo-img" style="transform: scale(0.9);">
+          </div>
+          <div class="exp-info">
+            <div class="exp-role">Peer Tutor -- Calculus and Physics</div>
+            <div class="exp-org">Knack Tutoring · Florida State University</div>
+            <div class="exp-date">Aug 2025 – Dec 2025 · Tallahassee, FL</div>
+            <ul class="exp-bullets">
+              <li>Tutored engineering students in Calculus and Physics through FSU's Knack platform, delivering 20 hours of coursework support across 10+ individual sessions</li>
+              <li>Provided one-on-one tutoring with customized lesson plans tailored to individual learning gaps, helping students improve their overall course standing by over 5%</li>
+              <li>Leveraged firsthand mastery of core engineering coursework to simplify complex concepts into accessible, peer-level terms for three student clients</li>
+              <li>Facilitated targeted review sessions focusing on high-difficulty problem sets and exam preparation, bolstering student problem-solving confidence</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-logo">
+            <img src="Images/Logos/Walmart.png" alt="Walmart Logo" class="exp-logo-img" style="transform: scale(1.1);">
+          </div>
+          <div class="exp-info">
+            <div class="exp-role">Customer Service Representative and Cashier</div>
+            <div class="exp-org">Walmart Inc.</div>
+            <div class="exp-date">May 2024 – Aug 2024, May 2025 – Dec 2025 · Bradenton, FL</div>
+            <ul class="exp-bullets">
+              <li>Processed hundreds of customer returns and exchanges weekly, ensuring accuracy, policy compliance, and efficient issue resolution</li>
+              <li>Managed high‑value financial transactions up to $5,000 while maintaining strict cash‑handling and loss‑prevention standards</li>
+              <li>Oversaw and coordinated a front‑end team of 10+ associates, assigning registers, adjusting floor placement, and making storewide announcements to maintain smooth customer flow</li>
+              <li>Organized merchandise by department and ensured 10+ departments collected their staged items promptly so they could return them to their areas for restocking</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-logo">
+            <img src="Images/Logos/Bealls.png" alt="Bealls Logo" class="exp-logo-img" style="transform: scale(0.9);">
+          </div>
+          <div class="exp-info">
+            <div class="exp-role">Retail Sales Associate</div>
+            <div class="exp-org">Bealls Outlet</div>
+            <div class="exp-date">Jun 2023 – Aug 2023 · Bradenton, FL</div>
+            <ul class="exp-bullets">
+              <li>Processed over 500 customer returns and payments to reduce customer wait times</li>
+              <li>Restocked merchandise for all nine store departments to enhance organization and improve store presentation</li>
+              <li>Resized and rearranged over 200 articles of clothing to ensure attention to detail and help customers locate items more easily</li>
+              <li>Worked collaboratively with over 20 store associates to keep the sales floor clean and organized</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-logo">
+            <img src="Images/Logos/Clementine's.png" alt="Clementine's Logo" class="exp-logo-img" style="transform: scale(0.9);">
+          </div>
+          <div class="exp-info">
+            <div class="exp-role">Host, Busser, and Cashier</div>
+            <div class="exp-org">Clementine's Restaurant</div>
+            <div class="exp-date">Jun 2022 – Nov 2022 · San Ramon, CA</div>
+            <ul class="exp-bullets">
+              <li>Efficiently handled and processed over 200 to-go phone and in-person orders to improve effective communication skills and work under time constraints</li>
+              <li>Scheduled about 50 reservations weekly and recorded reservation details to support my coworkers in seating and assisting customers</li>
+              <li>Trained new employees on learning the menu and understanding restaurant operations to improve overall workflow and team performance </li>
+              <li>Welcomed 1000+ guests weekly, escorting them to their tables and promptly taking their drink orders to ensure a positive impression and foster a friendly atmosphere</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="amber-rule" />
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-inner">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certifications</h2>
+    <div class="certs-grid fade-up">
+      <div class="cert-card">
+        <div class="cert-icon">⚡</div>
+        <div class="cert-name">Six Sigma Green Belt</div>
+        <div class="cert-org">Institute of Industrial and Systems Engineers (IISE) · Jan 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">📐</div>
+        <div class="cert-name">SolidWorks CSWA</div>
+        <div class="cert-org">Dassault Systèmes · In Progress</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🌐</div>
+        <div class="cert-name">State Seal of Biliteracy</div>
+        <div class="cert-org">Spanish Language Proficiency</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="amber-rule" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner contact-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="section-sub">I am currently seeking Summer 2027 internships in CAD/Product Design, Medical Technology, and Industrial Automation. Feel free to reach out via email or LinkedIn.</p>
+    
+    <div class="contact-links">
+      <a href="mailto:benslewis1@gmail.com" target="_blank" class="contact-link">✉ Email Me</a>
+      <a href="ME Resume - Benjamin Lewis.pdf" target="_blank" class="contact-link">📄 View Resume</a>
+      <a href="https://www.linkedin.com/in/bl-benjamin-lewis/" target="_blank" class="contact-link">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Benjamin Lewis · Designed & Built for Mechanical Engineering</p>
+</footer>
+
+</div>
+
+<!-- ═══════════════════════════ JAVASCRIPT ═══════════════════════════ -->
+<script>
+  function openDetail(id) {
+    document.querySelectorAll('.detail-page').forEach(page => page.classList.remove('open'));
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('open');
+      target.scrollTop = 0;
+    }
+  }
+
+  function closeDetail() {
+    document.querySelectorAll('.detail-page').forEach(page => page.classList.remove('open'));
+    // Smooth navigation directly back to the Projects section without jumping to top of home page
+    window.location.hash = '#projects';
+  }
+
+  function openSkillShowcase(skillName) {
+    document.getElementById('skill-showcase-title').innerText = skillName + " — Skill Showcase";
+    document.getElementById('skill-showcase-desc').innerText = "Detailed documentation, image gallery, and video clips demonstrating my hands-on application of " + skillName + " in engineering labs and projects.";
+    openDetail('detail-skills-showcase');
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

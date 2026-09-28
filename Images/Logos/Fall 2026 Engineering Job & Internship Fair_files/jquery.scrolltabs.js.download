@@ -1,0 +1,211 @@
+/**
+ * SCROLL TABS using the 'Flickity' (flickity.metafizzy.co)
+ */
+
+ (function($) {
+	$.fn.isInViewport = function(viewport) {
+		var elementLeft = $(this).offset().left;
+		var elementRight = elementLeft + $(this).outerWidth();
+
+		var viewportLeft = $(viewport).scrollLeft();
+		var viewportRight = viewportLeft + $(viewport).width();
+
+		var startPointInViewport;
+
+		if ($(document).attr('dir') == 'rtl') {
+			startPointInViewport = elementLeft > viewportRight && elementRight < viewportRight;
+		}
+		else {
+			startPointInViewport = elementLeft > viewportLeft && elementLeft < viewportRight;
+		}
+
+		return startPointInViewport && elementRight > viewportLeft;
+	};
+
+	$.fn.scrollTabs = function(opts){
+		var initialize = function(state){
+			opts = $.extend({}, $.fn.scrollTabs.defaultOptions, opts);
+
+			var tabId = $(this).attr('id');
+			var scrollableClass = 'scroll_tab_inner';
+			var scrollableEl = '.' + scrollableClass;
+			var savedScrollBtnIndex = sessionStorage.getItem('tab_pos_' + tabId + '_selected');
+			var savedActiveBtnIndex = sessionStorage.getItem('tab_pos_' + tabId + '_target');
+
+			if($(this).prop('tagName').toLowerCase() === 'ul'){
+				this.itemTag = 'li';
+			} else {
+				this.itemTag = 'span';
+			}
+			
+			// Check text direction of language
+			var cellAlign = 'left';
+			var cellAlignReverse = 'right';
+			if (checkRTL()) {
+				cellAlign = 'right';
+				cellAlignReverse = 'left';
+			}
+
+			// Scrollable tab when swipe by touch on mobile or disable the onlyScrollOnMobileDevice.
+			var touchDevice = function(){
+				if (!opts.onlyScrollableOnTouchDevice || (opts.onlyScrollableOnTouchDevice && isTouchDevice())) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+			// Set Flickity to target tab.
+			var $tab = $(this).find(scrollableEl).flickity({
+				cellAlign: cellAlign,
+				contain: true,
+				wrapAround: false,
+				rightToLeft: checkRTL(),
+				pageDots: false,
+				resize: true,
+				percentPosition: false,
+				prevNextButtons: false,
+				draggable: touchDevice(),
+				selectedAttraction: opts.scrollSpeed,
+				friction: opts.scrollFriction,
+			});
+
+			var flkty = $tab.data('flickity');
+			var flktySlider = $tab.find('.flickity-slider');
+
+			// Create arrow buttons for scroll on tabs.
+			var prevBtnHTML = scrollArrowBtn('left');
+			var nextBtnHTML = scrollArrowBtn('right');
+
+			$(scrollableEl, this).append(prevBtnHTML).append(nextBtnHTML);
+
+			// Appears arrow buttons when screen width is smaller than tab width.
+			// And set scroll position at last clicked tab button.
+			tabResizeReposition(true);
+
+			$(window).on('resize', function() {
+				tabResizeReposition(false);
+			});
+
+			// Enable/Disable an arrow button when position is on start or end.
+			$tab.on('settle.flickity', function(e) {
+				checkScrollEndPos(e.currentTarget);
+			});
+			
+			// Scrolling when click arrow buttons
+			$('.scroll_tab_' + cellAlign + '_button', this).on('click', function(e) {
+					e.preventDefault();
+					$tab.flickity('previous');
+			});
+			
+			$('.scroll_tab_' + cellAlignReverse + '_button', this).on('click', function(e) {
+					e.preventDefault();
+					if (!$(this).hasClass('scroll_tab_' + cellAlignReverse + '_button_disabled')) {
+						$tab.flickity('next');
+					}
+			});
+			
+			// Save positions when click a tab button.
+			flktySlider.children(this.itemTag).on('click', function(e) {
+				var selectedTabBtn = getTabBtnEq('.is-selected');
+				var targetTabBtn = getTabBtnEq(e.currentTarget);
+				sessionStorage.setItem('tab_pos_' + tabId + '_selected', selectedTabBtn);
+				sessionStorage.setItem('tab_pos_' + tabId + '_target', targetTabBtn);
+			});
+
+			// Compare the saved and current positions when page load and do reposition if active tab button is not on viewport.
+			function checkActiveBtnPosition() {
+				var index;
+				var currentActiveBtnIndex = getTabBtnEq('.active');
+				if (savedActiveBtnIndex === currentActiveBtnIndex && flktySlider.children(this.itemTag).eq(savedScrollBtnIndex).isInViewport($tab.find('.flickity-viewport'))) {
+					index = savedScrollBtnIndex;
+				} else {
+					index = currentActiveBtnIndex;
+				}
+				if (index > -1) {
+					$tab.flickity('select', index, false, true);
+				}
+			}
+
+			function checkRTL() {
+				if ($(document).attr('dir') == 'rtl') {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			function getTabBtnEq(e) {
+				var index;
+				flktySlider.children(this.itemTag).each(function(i, d) {
+					if (typeof e == 'string' && e.charAt(0) == '.' && $(this).hasClass(e.slice(1))) {
+						index = i;
+					} else if (typeof e == 'object' && $(this)[0] == e) {
+						index = i;
+					}
+				});
+				return index;
+			}
+			
+			function checkScrollEndPos(e) {
+				var currentPos = Math.abs(parseInt($(e).find('.flickity-slider').css('transform').split(',')[4]));
+				var lastCell = flkty.cells.length - 1;
+				var endPos = Math.round(flkty.cells[lastCell].size.width + flkty.cells[lastCell].target - $tab.find('.flickity-viewport').width());
+				$tab.find('.scroll_tab_left_button').removeClass('scroll_tab_left_button_disabled');
+				$tab.find('.scroll_tab_right_button').removeClass('scroll_tab_right_button_disabled');
+				if (currentPos === 0) {
+					$tab.find('.scroll_tab_' + cellAlign + '_button').addClass('scroll_tab_' + cellAlign + '_button_disabled');
+				} else if (currentPos == endPos) {
+					$tab.find('.scroll_tab_' + cellAlignReverse + '_button').addClass('scroll_tab_' + cellAlignReverse + '_button_disabled');
+				}
+			}
+
+			function isTouchDevice() {
+				// Checks for existence in all browsers and IE 10/11 & Surface
+				return 'ontouchstart' in window || navigator.maxTouchPoints;
+			}
+
+			function scrollArrowBtn(dir) {
+				var icon;
+				if (dir == 'left') {
+					icon = opts.leftArrowIconClassName;
+				} else if (dir == 'right') {
+					icon = opts.rightArrowIconClassName;
+				}
+				return "<div class='scroll_tab_" + dir + "_button'><span class='" + icon + "'></span></div>";
+			}
+
+			function tabResizeReposition(pageLoad) {
+				var sliderWidth = $(flkty.slider)[0].scrollWidth;
+				var viewportWidth = Math.round($(flkty.viewport).width()); //round to return an int bc scrollWidth returns int
+				if (sliderWidth > viewportWidth) {
+					var arrow_size_left = $tab.find('.scroll_tab_left_button').width();
+					var arrow_size_right = $tab.find('.scroll_tab_right_button').width();
+					$tab.css('padding', '0px ' + arrow_size_right + 'px 0px ' + arrow_size_left + 'px');
+					$tab.find('.scroll_tab_left_button, .scroll_tab_right_button').show();
+				} else {
+					$tab.css('padding', '0');
+					$tab.find('.scroll_tab_left_button, .scroll_tab_right_button').hide();
+				}
+				$tab.flickity('resize');
+				if (pageLoad) {
+					checkActiveBtnPosition();
+				}
+				checkScrollEndPos($tab);
+			}
+		};
+
+		this.each(function(){
+			initialize.call(this);
+		});
+	};
+  
+	$.fn.scrollTabs.defaultOptions = {
+		scrollSpeed: 0.05,
+		scrollFriction: 0.28,
+		onlyScrollableOnTouchDevice: true,
+		leftArrowIconClassName: 'icn-chevron_left',
+		rightArrowIconClassName: 'icn-chevron_right',
+	};
+
+})(jQuery);

@@ -1,0 +1,42 @@
+var TAB_SESSION_LINK = '';
+window.ngData = {"isLawCsm":false,"textfooter":"","language_pack":false,"show_symp_branding":true,"section_title":"Career Fairs"}
+
+var i18s = [];
+function i18(str, domain, params) {
+    if (i18s[domain] && i18s[domain][str]) {
+        str = i18s[domain][str];
+    }
+    if (params && (typeof params === "object")) {
+        for (let key in params) {
+            if (params.hasOwnProperty(key)) {
+                let placeholder = key;
+                if (key.indexOf("{") === -1) {
+                    placeholder = "{" + key + "}";
+                }
+                let pattern = new RegExp(placeholder, "g");
+                str = str.replace(pattern, params[key]);
+
+                const pluralRegex = new RegExp(`\\{(${key}),\\s*plural,\\s*(.*?\\})\\}`);
+                const match = str.match(pluralRegex);
+                if (match) {
+                    const variableName = match[1];
+                    const pluralPattern = match[2];
+
+                    const zeroMatch = pluralPattern.match(/=0\{(.*?)\}/);
+                    const singularMatch = pluralPattern.match(/=1\{(.*?)\}/);
+                    const pluralMatch = pluralPattern.match(/other\{(.*?)\}/);
+
+                    if (zeroMatch && params[key] == 0) {
+                        str = str.replace(pluralRegex, zeroMatch[1]);
+                    } else if (singularMatch && params[key] == 1) {
+                        str = str.replace(pluralRegex, singularMatch[1]);
+                    } else if (pluralMatch) {
+                        const interpolate = pluralMatch[1].replace("#", params[key]);
+                        str = str.replace(pluralRegex, interpolate);
+                    }
+                }
+            }
+        }
+    }
+    return str;
+}

@@ -1,0 +1,195 @@
+var utility = function() {
+
+	return {
+
+		fillFullName: function(field, form) {
+
+			if (form == undefined || field == undefined || field.name == '') {
+				return;
+			}
+
+			var field_name = field.name;
+			var layer_name = field_name.substring(0, field_name.indexOf(']') + 1);
+
+			var fields = {
+				'[fname]': '',
+				'[mi]': '',
+				'[lname]': ''
+
+			};
+
+			for (var property in fields) {
+				var field = form.elements[layer_name + property];
+				if (field.value != '') {
+					fields[property] = ' ' + field.value;
+				}
+			};
+
+			var full_name = fields['[fname]'] + fields['[mi]'] + fields['[lname]'];
+			form.elements[layer_name + '[fullname]'].value = full_name.trim();
+
+		},
+
+		trackUrl: trackUrl
+	};
+
+	function trackUrl(url, user_class, user_id, object_class, object_id) {
+
+		var params = {
+			method: "POST",
+			url: "/api/v2/track-url",
+			contentType: "application/json",
+			data: JSON.stringify({
+				url: url,
+				user_class: user_class,
+				user_id: user_id,
+				object_class: object_class,
+				object_id: object_id
+			})
+		};
+
+		jQuery.ajax(params);
+	}
+}();
+
+function setupBehatErrorHandler() {
+    window.behatErrors = [];
+    window.onerror = function(message, source, line, column, error) {
+        window.behatErrors.push(message + ". Line: " + line + ":" + column + " in " + source);
+    };
+}
+
+function showAccessibleModePopup(field_widget) {
+	if(field_widget.value == '1') {
+		alert(i18('Accessible Mode is only recommended for users of assistive technologies. Some enhancements will be disabled. Are you sure you want to switch to Accessible Mode?', 'misc'));
+	}
+}
+
+function showDayOptionSection(inField,inForm,inType) {
+  if (typeof inField != '') {
+    var fieldInfo = inField.id.split("__");
+    var options = $('#' + fieldInfo[0] + '__day__widget').find('input:radio');
+
+    for(i=0; i < options.length; i++) {
+      var value = options[i].value;
+      $('div.fg_' + value).hide();
+    }
+
+    $('div.fg_' + inField.value).show();
+  }
+}
+
+function insertMergeField2(field, accessibility_mode) {
+    var ta = document.getElementsByName("dnf_class_values[message_scratch][body]")[0];
+    var start = ta.selectionStart;
+    var end = ta.selectionEnd;
+    var text = ta.value;
+    var before = text.substring(0, start)
+    var after = text.substring(end, text.length)
+    ta.value = before + field + after
+
+    if (!typeof ta != 'undefined') {
+        if(accessibility_mode){
+            var start = ta.selectionStart;
+            var end = ta.selectionEnd;
+            var text = ta.value;
+            var before = text.substring(0, start)
+            var after = text.substring(end, text.length)
+            ta.value = before + field + after
+        } else {
+            tinyMCE.activeEditor.execCommand('mceInsertContent', false, field);
+        }
+    }
+
+  return false;
+}
+
+function getPreviousMatchingElement(el, selector) {
+    var sibling = el.previousElementSibling;
+    if (!selector) {
+        return sibling;
+    }
+    while (sibling) {
+        if (sibling.matches) {
+            if (sibling.matches(selector)) {
+                return sibling;
+            }
+        } else if(sibling.msMatchesSelector) {
+            if (sibling.msMatchesSelector(selector)) {
+                return sibling;
+            }
+        }
+
+        sibling = sibling.previousElementSibling;
+    }
+}
+
+function truncateHtmlContent(el) {
+    var overflowText = '';
+    var contentElem = getPreviousMatchingElement(el, '.html-expandable-content');
+    for (var x = 0; x < contentElem.textContent.length; x++) {
+        if (checkHtmlContentOverflow(contentElem)) {
+            var text = contentElem.textContent;
+            overflowText = text.slice(-1) + overflowText;
+        } else {
+            break;
+        }
+    }
+    if (!overflowText) {
+        contentElem.style.height = 'auto';
+        el.parentNode.removeChild(el);
+        var fadeOutElem = contentElem.querySelector('.fade-out-text');
+        fadeOutElem.parentNode.removeChild(fadeOutElem);
+    }
+}
+
+function checkHtmlContentOverflow(el) {
+    var curOverflow = el.style.overflow;
+    if (!curOverflow || curOverflow === "visible")
+        el.style.overflow = "hidden";
+
+    var isOverflowing = el.clientWidth < el.scrollWidth
+        || el.clientHeight < el.scrollHeight;
+
+    el.style.overflow = curOverflow;
+    return isOverflowing;
+}
+
+function handleTruncatedHtmlContent(el) {
+    var contentElem = getPreviousMatchingElement(el, '.html-expandable-content');
+    if (contentElem.style.height) {
+        contentElem.style.height = '';
+        if (contentElem.querySelector('.fade-out-text').classList) {
+            contentElem.querySelector('.fade-out-text').classList.add('html-truncate-gradient');
+        } else {
+            contentElem.querySelector('.fade-out-text').className += ' ' + 'html-truncate-gradient';
+        }
+        el.textContent = i18('Read More', 'misc') + '...';
+    } else {
+        contentElem.style.height = 'auto';
+        if (contentElem.querySelector('.fade-out-text').classList) {
+            contentElem.querySelector('.fade-out-text').classList.remove('html-truncate-gradient');
+        } else {
+            contentElem.querySelector('.fade-out-text').className = el.querySelector('.fade-out-text').className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+        el.textContent = i18('Read Less', 'misc');
+    }
+}
+
+function setDegreePrimary(degreeId) {
+    var degreeIds = document.querySelectorAll("[id$='__degree_primary_']");
+    for (var degreeNdx = 0; degreeNdx < degreeIds.length; degreeNdx++) {
+        var node = degreeIds[degreeNdx];
+        if (!node.parentNode.querySelector("[id='" + degreeId + "']")) {
+            var radioButtons = node.querySelectorAll("[class='input-radio']");
+            if (radioButtons.length) {
+                for (var r = 0; r < radioButtons.length; r++) {
+                    radioButtons[r].checked = (radioButtons[r].value !== '1');
+                }
+            } else {
+                var currentPrimary = node.querySelector("input[type='hidden']");
+                currentPrimary.value = '0';
+            }
+        }
+    }
+}

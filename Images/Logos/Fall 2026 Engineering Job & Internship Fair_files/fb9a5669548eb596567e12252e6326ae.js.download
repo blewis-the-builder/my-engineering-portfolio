@@ -1,0 +1,4 @@
+i18s['misc'] = [];
+i18s['misc']["Accessible Mode is only recommended for users of assistive technologies. Some enhancements will be disabled. Are you sure you want to switch to Accessible Mode?"] = "";
+i18s['misc']["Read More"] = "";
+i18s['misc']["Read Less"] = "";

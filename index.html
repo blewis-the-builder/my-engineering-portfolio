@@ -103,6 +103,22 @@
   color: #FFFFFF;
 }
 
+/* Biomechatronic Brain: 2x2 Photo Gallery */
+.brain-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+/* Mobile Layout */
+@media (max-width: 600px) {
+    .brain-photo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -345,10 +361,272 @@
       </div>
     </div>
   </div>
-  <div class="detail-body">
-    <h3>Project Overview</h3>
-    <p>Developing a biomechatronic brain model integrating embedded control, sensors, and structural design for youth engineering outreach.</p>
+  
+
+<div class="detail-body">
+
+  <h3>Problem Statement</h3>
+  <p>
+    Traditional classroom instruction can make it difficult
+    for middle school students to visualize the relationship
+    between different regions of the human brain and their
+    neurological functions. The challenge was to develop an
+    interactive educational model that connected brain
+    anatomy with practical engineering concepts through
+    hands-on learning.
+  </p>
+
+  <h3>Project Motivation</h3>
+  <p>
+    As STEM instructors at Young Engineers Tallahassee,
+    we sought to introduce students to the intersection
+    of <strong>neuroscience, electronics, and
+    mechatronics</strong>. Our goal was to reinforce
+    biological concepts through interactive activities
+    while providing students with opportunities to build
+    circuits, integrate sensors, and explore Arduino-based
+    systems.
+  </p>
+
+  <h3>Target Audience</h3>
+  <p>
+    The project was developed for <strong>middle school
+    students participating in the Young Engineers
+    Tallahassee summer STEM program</strong>. The activities
+    were designed for students with introductory experience
+    in engineering, emphasizing accessible explanations,
+    collaborative problem-solving, and hands-on learning.
+  </p>
+
+  <h3>Design, Analysis, and Testing</h3>
+  <p>
+    The prototype incorporated an <strong>Arduino
+    microcontroller, ultrasonic distance sensor, LEDs,
+    push button, buzzer, tilt sensor, and
+    photoresistor</strong>. These components were selected
+    to create interactive demonstrations relating
+    electronic inputs and outputs to different functions
+    of the human brain.
+  </p>
+
+  <p>
+    Students first explored brain anatomy through quizzes
+    and educational activities before applying their
+    knowledge to circuit construction and sensor
+    demonstrations. For example, the
+    <strong>tilt sensor represented balance and
+    coordination, functions associated with the
+    cerebellum</strong>.
+  </p>
+
+  <p>
+    A human brain model was 3D-printed, and openings were
+    drilled into selected anatomical regions to accommodate
+    the corresponding electronic components. During
+    assembly, we evaluated component placement and
+    accessibility, identifying limitations with the
+    proposed integration of the electronics.
+  </p>
+
+ <br> 
+<h4>3D Model Selection and Preparation</h4>
+
+<p>
+  A three-dimensional anatomical brain model was
+  selected as the physical foundation for the
+  educational prototype. The STL geometry provided
+  a representation of the brain's external anatomy
+  and was used to fabricate the model through
+  additive manufacturing.
+</p>
+
+<div class="media-grid">
+
+  <!-- Figure 1: First STL View -->
+  <figure>
+    <img
+      src="Images/Biomechatronic Brain/isometric.PNG"
+      alt="3D anatomical brain STL model, first view"
+      style="width:100%; max-width:650px;
+             display:block; margin:1.5rem auto;
+             border-radius:8px;">
+
+    <figcaption>
+      <strong>Figure 1: Anatomical Brain STL Model View 1.</strong><br>
+      Isometric View of the brain geometry
+      selected for 3D printing and integration
+      into the educational prototype.
+    </figcaption>
+  </figure>
+
+  <!-- Figure 2: Second STL View -->
+  <figure>
+    <img
+      src="Images/Biomechatronic Brain/bottom.PNG"
+      alt="3D anatomical brain STL model, alternate view"
+      style="width:100%; max-width:650px;
+             display:block; margin:1.5rem auto;
+             border-radius:8px;">
+
+    <figcaption>
+      <strong>Figure 2: Anatomical Brain STL Model View 2.</strong><br>
+      Bottom View of the brain geometry
+      selected for 3D printing and integration
+      into the educational prototype.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="Images/Biomechatronic Brain/Chart.png"
+         alt="Functional Brain Chart"
+         style="width:100%; max-width:860px;
+                display:block; margin:1.5rem auto;
+                border-radius:8px;">
+    <figcaption>
+      <strong>Figure 3: Brain Functions and Sensors Visual.</strong><br>
+      Visual representation of the sensors used in the prototype, 
+      illustrating their relationships to specific brain regions 
+      and their associated neurological functions.
+    </figcaption>
+  </figure>
+
+</div>
+
+<h3>Final Design</h3>
+
+<p>
+  The original concept involved mounting the Arduino
+  and breadboard beneath the 3D-printed brain while
+  positioning sensors within the model. However, the
+  <strong>ultrasonic distance sensor and photoresistor
+  required unobstructed exposure</strong> to detect
+  environmental inputs effectively.
+</p>
+
+<p>
+  To resolve these integration challenges, we presented
+  the <strong>electronic prototype and 3D-printed brain
+  as separate assemblies</strong>. Colorful labels
+  were added to identify the different anatomical
+  regions of the brain, maintaining the educational
+  purpose of the model while allowing the electronics
+  to remain accessible for demonstrations.
+</p>
+
+
+<h3>Project Photographs</h3>
+
+<div class="brain-photo-grid">
+
+  <figure>
+    <img src="Images/Biomechatronic Brain/setup.jpg"
+         alt="Arduino electronic prototype"
+         style="width:100%; max-width:650px;
+                display:block; margin:1.5rem auto;
+                border-radius:8px;">
+    <figcaption>
+      <strong>Figure 1: Initial Electronic Assembly.</strong><br>
+       Beginning stages of the biomechatronic brain prototype,
+      showing the initial Arduino and breadboard setup
+      before completion of the electronic system.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="Images/Biomechatronic Brain/Distance.jpg"
+         alt="LED output testing"
+         style="width:100%; max-width:650px;
+                display:block; margin:1.5rem auto;
+                border-radius:8px;">
+    <figcaption>
+      <strong>Figure 2: Ultrasonic Distance Sensor Testing.</strong><br>
+      Functional demonstration of the ultrasonic distance
+      sensor, with blue LEDs illuminating when a hand
+      is detected within approximately 20 cm of the sensor.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="Images/Biomechatronic Brain/Button.jpg"
+         alt="Electronic prototype testing"
+         style="width:100%; max-width:650px;
+                display:block; margin:1.5rem auto;
+                border-radius:8px;">
+    <figcaption>
+      <strong>Figure 3: Push Button and LED Testing.</strong><br>
+      Functional demonstration of the push-button input,
+      which activates the green LED when pressed,
+      verifying the circuit's input-output response.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="Images/Biomechatronic Brain/final_design.jpg"
+         alt="Breadboard circuit assembly"
+         style="width:100%; max-width:650px;
+                display:block; margin:1.5rem auto;
+                border-radius:8px;">
+    <figcaption>
+      <strong>Figure 4: Final Electronic Prototype.</strong><br>
+      Completed Arduino-based electronic assembly with
+      all integrated components connected and functioning,
+      demonstrating the final standalone configuration
+      of the biomechatronic brain prototype.
+    </figcaption>
+  </figure>
+
+</div>
+
+<h3>Prototype Demonstration</h3>
+
+<figure class="project-video">
+
+  <video controls preload="metadata"
+         playsinline
+         style="width:100%; max-width:300px;
+                display:block; margin:1.5rem auto;
+                border-radius:8px;">
+
+    <source
+      src="Images/Biomechatronic Brain/Video.mp4"
+      type="video/mp4">
+
+    Your browser does not support HTML5 video.
+  </video>
+
+  <figcaption>
+    <strong>Video 1: Biomechatronic Brain Demonstration.</strong><br>
+    Demonstration of the standalone Arduino-based
+    electronic prototype developed for youth
+    engineering outreach.
+  </figcaption>
+
+</figure>
+
+  
+
+<h3>Supporting Resources and References</h3>
+<br>
+<h4>Educational Presentation</h4>
+
+<p>
+  The following presentation documents the educational
+  activities, electronic components, Arduino programming,
+  and prototype development.
+</p>
+
+<iframe
+  src="Documents/Biomechatronic Brain/The Programmable Brain - YET.pdf#view=Fit"
+  title="Biomechatronic Brain Educational Presentation"
+  style="width:100%;
+         height:550px;
+         border:1px solid #C8BBC0;
+         border-radius:8px;"
+  loading="lazy">
+</iframe>
+
   </div>
+
 </div>
 
 <!-- ========================================== -->
